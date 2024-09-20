@@ -38,22 +38,10 @@ const app = express();
 app.use(express.json());
 
 // CORS configuration
-// app.use(cors({
-//     origin: process.env.FRONTEND_URL, // Update for deployed frontend URL
-//     credentials: true
-// }));
-
-const cors = require('cors');
-
 app.use(cors({
-    origin: 'https://main--creative-jelly-492343.netlify.app', // Your Netlify URL
-    credentials: true, // Necessary if cookies or session authentication are used
-    methods: 'GET, POST, PUT, DELETE', // Allow relevant methods
-    allowedHeaders: 'Content-Type, Authorization', // Allow these headers
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Update for deployed frontend URL
+    credentials: true
 }));
-
-
-
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI).then(() => console.log('MongoDB connected')).catch((err) => console.log(err));
@@ -62,13 +50,13 @@ mongoose.connect(process.env.MONGO_URI).then(() => console.log('MongoDB connecte
 app.use('/api/users', userRoutes);
 
 // Serve static files from React app
-// if (process.env.NODE_ENV === 'production') {
-//     app.use(express.static(path.join(__dirname, 'build')));
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'frontend/build')));
 
-//     app.get('*', (req, res) => {
-//         res.sendFile(path.join(__dirname, 'build', 'index.html'));
-//     });
-// }
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+    });
+}
 
 // Error handling middleware
 app.use((err, req, res, next) => {
