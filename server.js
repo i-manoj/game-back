@@ -39,9 +39,11 @@ app.use(express.json());
 
 // CORS configuration
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Update for deployed frontend URL
+    origin: process.env.FRONTEND_URL, // Update for deployed frontend URL
     credentials: true
 }));
+app.options('*', cors());
+
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI).then(() => console.log('MongoDB connected')).catch((err) => console.log(err));
