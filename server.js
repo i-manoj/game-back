@@ -43,13 +43,15 @@ app.use(express.json());
 //     credentials: true
 // }));
 
-const corsOptions = {
-    origin: 'https://main--creative-jelly-492343.netlify.app', // Netlify frontend
-    credentials: true, // Allow cookies or credentials
-    optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+const cors = require('cors');
 
-app.use(cors(corsOptions));
+app.use(cors({
+    origin: 'https://main--creative-jelly-492343.netlify.app', // Your Netlify URL
+    credentials: true, // Necessary if cookies or session authentication are used
+    methods: 'GET, POST, PUT, DELETE', // Allow relevant methods
+    allowedHeaders: 'Content-Type, Authorization', // Allow these headers
+}));
+
 
 
 
