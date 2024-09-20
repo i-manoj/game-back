@@ -52,13 +52,13 @@ mongoose.connect(process.env.MONGO_URI).then(() => console.log('MongoDB connecte
 app.use('/api/users', userRoutes);
 
 // Serve static files from React app
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '/build')));
+// if (process.env.NODE_ENV === 'production') {
+//     app.use(express.static(path.join(__dirname, 'build')));
 
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '/build', 'index.html'));
-    });
-}
+//     app.get('*', (req, res) => {
+//         res.sendFile(path.join(__dirname, 'build', 'index.html'));
+//     });
+// }
 
 // Error handling middleware
 app.use((err, req, res, next) => {
