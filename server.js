@@ -43,12 +43,14 @@ app.use(express.json());
 //     credentials: true
 // }));
 
-app.use(cors({
-    origin: 'https://main--creative-jelly-492343.netlify.app',
-    credentials: true,
-    methods: 'GET,POST,PUT,DELETE',
-    allowedHeaders: 'Content-Type,Authorization'
-}));
+const corsOptions = {
+    origin: 'https://main--creative-jelly-492343.netlify.app', // Netlify frontend
+    credentials: true, // Allow cookies or credentials
+    optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
+
 
 
 // MongoDB connection
